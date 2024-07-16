@@ -29,7 +29,7 @@ private fun Languages() {
             .id("experience")
             .fillMaxSize()
             .height(50.vh)
-            .padding(top = 55.px),
+            .scrollMargin(top = 5.cssRem),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -44,7 +44,7 @@ private fun Languages() {
             numColumns(1, md = 4),
             modifier = Modifier
                 .gap(0.8.cssRem)
-                .padding(20.px)
+                .padding(top = 20.px)
         ) {
             Language(name = "Swift")
             Language(name = "Objective-C")
@@ -61,7 +61,7 @@ private fun Projects() {
             .id("projects")
             .fillMaxSize()
             .height(100.vh)
-            .padding(top = 55.px),
+            .scrollMargin(top = 5.cssRem),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -76,7 +76,7 @@ private fun Projects() {
             numColumns(1, md = 3),
             modifier = Modifier
                 .gap(0.8.cssRem)
-                .padding(top = 15.px)
+                .padding(top = 20.px)
         ) {
             Project(name = "Areesha", description = "Keep track of your favorite TV shows")
             Project(name = "Azure", description = "FOSS TOTP 2FA with a clean, straightforward UI")
