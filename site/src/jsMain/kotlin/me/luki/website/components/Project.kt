@@ -14,6 +14,7 @@ import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.toModifier
 import me.luki.website.styles.ProjectStyle
+import me.luki.website.utils.Constants
 import me.luki.website.utils.CustomColors
 import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.cssRem
@@ -34,14 +35,14 @@ fun Project(name: String, description: String) {
                 width = 2.px
             )
             .onClick {
-                context.router.navigateTo("https://github.com/Luki120/$name")
+                context.router.navigateTo("${Constants.GITHUB_URL}/$name")
             },
         contentAlignment = Alignment.Center
     ) {
         Column(
             modifier = Modifier
-                .gap(0.2.cssRem)
                 .fillMaxSize()
+                .gap(0.2.cssRem)
                 .padding(20.px),
             verticalArrangement = Arrangement.Center
         ) {
