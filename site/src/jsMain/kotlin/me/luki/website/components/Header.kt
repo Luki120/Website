@@ -1,7 +1,9 @@
 package me.luki.website.components
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.css.functions.clamp
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -10,7 +12,7 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.compose.ui.styleModifier
+import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.icons.CloseIcon
 import com.varabyte.kobweb.silk.components.icons.HamburgerIcon
@@ -21,6 +23,7 @@ import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
 import com.varabyte.kobweb.silk.components.overlay.Overlay
 import com.varabyte.kobweb.silk.components.overlay.OverlayVars
+import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.defer.deferRender
 import com.varabyte.kobweb.silk.style.animation.Keyframes
 import com.varabyte.kobweb.silk.style.animation.toAnimation
@@ -29,6 +32,9 @@ import com.varabyte.kobweb.silk.style.breakpoint.displayIfAtLeast
 import com.varabyte.kobweb.silk.style.breakpoint.displayUntil
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import kotlinx.browser.localStorage
+import kotlinx.browser.window
+import me.luki.website.core.COLOR_MODE_KEY
 import me.luki.website.styles.LinkStyle
 import me.luki.website.styles.TranslucentNavBarStyle
 import me.luki.website.utils.toSitePalette
@@ -156,11 +162,7 @@ private fun MenuLink(path: String, text: String) {
         text = text,
         modifier = LinkStyle.toModifier()
             .backgroundColor(Colors.Transparent)
-            .fontFamily("Barlow")
-            .zIndex(1)
-            .styleModifier {
-                property("pointer-events", "auto")
-            },
+            .fontFamily("Barlow"),
         variant = UndecoratedLinkVariant.then(UncoloredLinkVariant)
     )
 }
@@ -168,15 +170,80 @@ private fun MenuLink(path: String, text: String) {
 @Composable
 private fun ColorModeButton() {
     var colorMode by ColorMode.currentState
+    var opacity by remember { mutableFloatStateOf(0f) }
+    var shouldAnimate by remember { mutableStateOf(false) }
 
     Button(
-        onClick = { colorMode = colorMode.opposite },
         modifier = Modifier
             .backgroundColor(Colors.Transparent)
-            .styleModifier {
-                property("pointer-events", "auto")
-            }
+            .display(DisplayStyle.InlineBlock)
+            .position(Position.Relative),
+        onClick = {
+            opacity = if (opacity == 0f) 1f else 0f
+            shouldAnimate = true
+        }
     ) {
         if (colorMode.isLight) MoonIcon() else SunIcon()
+        Column(
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .backgroundColor(ColorMode.current.toSitePalette().nearBackground)
+                .onMouseLeave { opacity = 0f }
+                .opacity(opacity)
+                .position(Position.Absolute)
+                .right(0.px)
+                .thenIf(
+                    condition = shouldAnimate,
+                    other = Modifier.transition(Transition.of("opacity", duration = 300.ms))
+                )
+                .top(120.percent)
+        ) {
+            DropdownContentButton(
+                text = "Dark",
+                onClick = {
+                    colorMode = ColorMode.DARK
+                    localStorage.setItem(key = COLOR_MODE_KEY, value = colorMode.name)
+                    opacity = 0f
+                    shouldAnimate = false
+                }
+            )
+            DropdownContentButton(
+                text = "Light",
+                onClick = {
+                    colorMode = ColorMode.LIGHT
+                    localStorage.setItem(key = COLOR_MODE_KEY, value = colorMode.name)
+                    opacity = 0f
+                    shouldAnimate = false
+                }
+            )
+            DropdownContentButton(
+                text = "System",
+                onClick = {
+                    colorMode = window.matchMedia("(prefers-color-scheme: dark)").let { query ->
+                        if (query.matches) ColorMode.DARK else ColorMode.LIGHT
+                    }
+                    localStorage.removeItem(key = COLOR_MODE_KEY)
+                    opacity = 0f
+                    shouldAnimate = false
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun DropdownContentButton(text: String, onClick: () -> Unit) {
+    Button(
+        modifier = Modifier
+            .backgroundColor(Colors.Transparent)
+            .display(DisplayStyle.Block),
+        onClick = { onClick() }
+    ) {
+        SpanText(
+            text = text,
+            modifier = Modifier
+                .fontFamily("Barlow")
+                .fontWeight(FontWeight.Normal)
+        )
     }
 }

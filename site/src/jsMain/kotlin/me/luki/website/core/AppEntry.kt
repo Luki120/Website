@@ -1,4 +1,4 @@
-package me.luki.website
+package me.luki.website.core
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
