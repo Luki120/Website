@@ -5,4 +5,3 @@ build/
 /site/.kobweb/*
 !/site/.kobweb/conf.yaml
 !/site/.kobweb/site
-kotlin-js-store
