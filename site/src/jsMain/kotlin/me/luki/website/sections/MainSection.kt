@@ -10,7 +10,6 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.icons.fa.FaArrowDown
@@ -40,14 +39,13 @@ private fun About() {
     Column(
         modifier = Modifier
             .id("about")
+            .classNames("section-container")
             .height("100svh".unsafeCast<CSSLengthNumericValue>())
             .fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = Modifier.position(Position.Relative)
-        ) {
+        Column(modifier = Modifier.position(Position.Relative)) {
             SpanText(
                 text = "Hi I'm Luki120",
                 modifier = AboutStyle.toModifier()
@@ -66,9 +64,7 @@ private fun About() {
             )
         }
         Button(
-            onClick = {
-                pageContext.router.navigateTo("#experience")
-            },
+            onClick = { pageContext.router.navigateTo("#experience") },
             modifier = Modifier
                 .animation(
                     JumpKeyframe.toAnimation(
@@ -78,13 +74,9 @@ private fun About() {
                         direction = AnimationDirection.AlternateReverse
                     )
                 )
-                .color(CustomColors.Purple)
-                .backgroundColor(Colors.Transparent)
                 .bottom(10.percent)
+                .color(CustomColors.Purple)
                 .position(Position.Absolute)
-                .styleModifier {
-                    property("-webkit-tap-highlight-color", "transparent")
-                }
         ) {
             FaArrowDown(modifier = Modifier.fontSize(35.px))
         }

@@ -27,6 +27,7 @@ private fun Languages() {
     Column(
         modifier = Modifier
             .id("experience")
+            .classNames("section-container")
             .fillMaxSize()
             .height(50.vh)
             .scrollMargin(top = 5.cssRem),
@@ -59,6 +60,7 @@ private fun Projects() {
     Column(
         modifier = Modifier
             .id("projects")
+            .classNames("section-container")
             .fillMaxSize()
             .height(100.vh)
             .scrollMargin(top = 5.cssRem),
