@@ -29,13 +29,16 @@ import org.w3c.dom.MediaQueryListEvent
 
 internal const val COLOR_MODE_KEY = "luki120.xyz-colorMode"
 
+val ColorMode.Companion.SYSTEM
+    get() = window.matchMedia("(prefers-color-scheme: dark)")
+
 @App
 @Composable
 fun AppEntry(content: @Composable () -> Unit) {
     SilkApp {
         var colorMode by ColorMode.currentState
         LaunchedEffect(Unit) {
-            window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", {
+            ColorMode.SYSTEM.addEventListener("change", {
                 localStorage.getItem(COLOR_MODE_KEY) ?: let { _ ->
                     colorMode = (if (it is MediaQueryListEvent && it.matches) ColorMode.DARK else ColorMode.LIGHT)
                 }
@@ -54,7 +57,7 @@ fun AppEntry(content: @Composable () -> Unit) {
 @InitSilk
 fun InitSilk(context: InitSilkContext) {
     context.config.initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) }
-        ?: window.matchMedia("(prefers-color-scheme: dark)").let { query ->
+        ?: ColorMode.SYSTEM.let { query ->
             if (query.matches) ColorMode.DARK else ColorMode.LIGHT
         }
 
