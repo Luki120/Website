@@ -5,10 +5,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.varabyte.kobweb.compose.css.setVariable
+import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight
+import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.core.App
 import com.varabyte.kobweb.silk.SilkApp
+import com.varabyte.kobweb.silk.components.forms.ButtonStyle
 import com.varabyte.kobweb.silk.components.layout.Surface
 import com.varabyte.kobweb.silk.components.layout.SurfaceVars.BackgroundColor
 import com.varabyte.kobweb.silk.init.InitSilk
@@ -16,6 +19,8 @@ import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.style.common.SmoothColorStyle
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.colors.palette.button
+import com.varabyte.kobweb.silk.theme.modifyStyle
 import kotlinx.browser.document
 import kotlinx.browser.localStorage
 import kotlinx.browser.window
@@ -52,4 +57,22 @@ fun InitSilk(context: InitSilkContext) {
         ?: window.matchMedia("(prefers-color-scheme: dark)").let { query ->
             if (query.matches) ColorMode.DARK else ColorMode.LIGHT
         }
+
+    context.theme.palettes.dark.button.apply {
+        default = Colors.Transparent
+        hover = Colors.Transparent
+        pressed = Colors.Transparent
+    }
+    context.theme.palettes.light.button.apply {
+        default = Colors.Transparent
+        hover = Colors.Transparent
+        pressed = Colors.Transparent
+    }
+    context.theme.modifyStyle(ButtonStyle) {
+        base {
+            Modifier.styleModifier {
+                property("-webkit-tap-highlight-color", "transparent")
+            }
+        }
+    }
 }

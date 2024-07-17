@@ -1,8 +1,6 @@
 package me.luki.website.styles
 
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Colors
-import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.height
 import com.varabyte.kobweb.compose.ui.modifiers.scale
 import com.varabyte.kobweb.compose.ui.modifiers.width
@@ -14,7 +12,6 @@ val SocialButtonStyle = CssStyle(
     extraModifier = Modifier
         .height(28.px)
         .width(28.px)
-        .backgroundColor(Colors.Transparent)
 ) {
     hover {
         Modifier.scale(1.1)
