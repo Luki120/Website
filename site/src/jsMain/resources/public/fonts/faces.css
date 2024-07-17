@@ -1,9 +1,9 @@
 @font-face {
-  font-family: 'Barlow';
-  src: url('/fonts/barlow/Barlow-Regular.ttf');
+    font-family: 'Barlow';
+    src: url('/fonts/barlow/Barlow-Regular.woff');
 }
 
 @font-face {
-  font-family: 'Quicksand';
-  src: url('/fonts/quicksand/Quicksand-Bold.ttf');
+    font-family: 'Quicksand';
+    src: url('/fonts/quicksand/Quicksand-Bold.woff');
 }
