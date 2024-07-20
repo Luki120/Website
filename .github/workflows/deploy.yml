@@ -3,8 +3,6 @@ name: Build website & deploy it to Cloudflare
 
 on:
   push:
-    branches:
-      - master
 
 jobs:
    export:
@@ -24,7 +22,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: 22
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
