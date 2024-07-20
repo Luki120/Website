@@ -4,4 +4,3 @@ build/
 .idea
 /site/.kobweb/*
 !/site/.kobweb/conf.yaml
-!/site/.kobweb/site
