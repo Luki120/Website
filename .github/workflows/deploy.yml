@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-   export:
+  export:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -70,4 +70,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy ${{ github.workspace }}/site/.kobweb/site/ --project-name=website
-          wranglerVersion: "3.65.1"
+          wranglerVersion: "3.67.1"
