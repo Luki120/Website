@@ -3,6 +3,10 @@ name: Build website & deploy it to Cloudflare
 
 on:
   push:
+    branches:
+      - main
+
+  workflow_dispatch:
 
 jobs:
    export:
