@@ -3,7 +3,6 @@ package me.luki.website.styles
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.border
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
-import com.varabyte.kobweb.compose.ui.modifiers.color
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
@@ -20,7 +19,6 @@ val LinkStyle = CssStyle {
                 width = 2.px
             )
             .borderRadius(20.px)
-            .color(CustomColors.Purple)
             .padding(topBottom = 10.px, leftRight = 20.px)
     }
 }

@@ -13,9 +13,10 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.toModifier
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import me.luki.website.styles.ProjectStyle
 import me.luki.website.utils.Constants
-import me.luki.website.utils.CustomColors
+import me.luki.website.utils.toSitePalette
 import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.px
@@ -30,7 +31,7 @@ fun Project(name: String, description: String) {
             .width(260.px)
             .height(110.px)
             .border(
-                color = CustomColors.Purple,
+                color = ColorMode.current.toSitePalette().accent,
                 style = LineStyle.Solid,
                 width = 2.px
             )
@@ -49,7 +50,7 @@ fun Project(name: String, description: String) {
             SpanText(
                 text = name,
                 modifier = Modifier
-                    .color(CustomColors.Purple)
+                    .color(ColorMode.current.toSitePalette().accent)
                     .fontSize(22.px)
                     .fontFamily("Barlow")
                     .textAlign(TextAlign.Left)

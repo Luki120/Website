@@ -19,7 +19,8 @@ import com.varabyte.kobweb.silk.style.animation.Keyframes
 import com.varabyte.kobweb.silk.style.animation.toAnimation
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.toModifier
-import me.luki.website.utils.CustomColors
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import me.luki.website.utils.toSitePalette
 import org.jetbrains.compose.web.css.*
 
 val JumpKeyframe = Keyframes {
@@ -50,7 +51,7 @@ private fun About() {
                 text = "Hi I'm Luki120",
                 modifier = AboutStyle.toModifier()
                     .align(Alignment.CenterHorizontally)
-                    .color(CustomColors.Purple)
+                    .color(ColorMode.current.toSitePalette().accent)
                     .textAlign(TextAlign.Center)
                     .fontFamily("Quicksand")
             )
@@ -75,7 +76,7 @@ private fun About() {
                     )
                 )
                 .bottom(10.percent)
-                .color(CustomColors.Purple)
+                .color(ColorMode.current.toSitePalette().accent)
                 .position(Position.Absolute)
         ) {
             FaArrowDown(modifier = Modifier.fontSize(35.px))

@@ -9,9 +9,10 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.layout.SimpleGrid
 import com.varabyte.kobweb.silk.components.layout.numColumns
 import com.varabyte.kobweb.silk.components.text.SpanText
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import me.luki.website.components.Language
 import me.luki.website.components.Project
-import me.luki.website.utils.CustomColors
+import me.luki.website.utils.toSitePalette
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.vh
@@ -37,7 +38,7 @@ private fun Languages() {
         SpanText(
             text = "Languages I know",
             modifier = Modifier
-                .color(CustomColors.Purple)
+                .color(ColorMode.current.toSitePalette().accent)
                 .fontSize(35.px)
                 .fontFamily("Quicksand")
         )
@@ -70,7 +71,7 @@ private fun Projects() {
         SpanText(
             text = "Projects",
             modifier = Modifier
-                .color(CustomColors.Purple)
+                .color(ColorMode.current.toSitePalette().accent)
                 .fontSize(35.px)
                 .fontFamily("Quicksand")
         )

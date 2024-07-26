@@ -1,6 +1,7 @@
 package me.luki.website.components
 
 import androidx.compose.runtime.Composable
+import com.varabyte.kobweb.compose.css.CSSLengthOrPercentageNumericValue
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.graphics.Image
+import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
@@ -24,6 +26,7 @@ import org.jetbrains.compose.web.ExperimentalComposeWebApi
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.filter
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.dom.Span
 
 @Composable
 fun Footer() {
@@ -36,11 +39,17 @@ fun Footer() {
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.px),
             modifier = Modifier
-                .gap(0.5.cssRem)
                 .fillMaxWidth()
                 .padding(topBottom = 15.px)
         ) {
+            Span {
+                FooterText(text = "This website is ")
+                Link(path = Constants.WEBSITE_URL, text = "open source")
+                FooterText(text = ", written using ")
+                Link(path = Constants.KOBWEB_URL, text = "Kobweb")
+            }
             Row(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
@@ -48,23 +57,28 @@ fun Footer() {
                 SocialButton(imageSource = Images.GITHUB, url = Constants.GITHUB_URL)
                 SocialButton(imageSource = Images.TWITTER, url = Constants.TWITTER_URL)
             }
-
-            SpanText(
-                text = "© 2024 Luki120",
-                modifier = Modifier
-                    .color(Colors.Gray)
-                    .fontFamily("Barlow")
-            )
+            FooterText(text = "© 2024 Luki120", fontSize = 0.75.cssRem)
         }
     }
+}
+
+@Composable
+private fun FooterText(text: String, fontSize: CSSLengthOrPercentageNumericValue = 1.cssRem) {
+    SpanText(
+        text = text,
+        modifier = Modifier
+            .color(Colors.Gray)
+            .fontFamily("Barlow")
+            .fontSize(fontSize)
+    )
 }
 
 @OptIn(ExperimentalComposeWebApi::class)
 @Composable
 private fun SocialButton(imageSource: String, url: String) {
     val isLight = when (ColorMode.current) {
-        ColorMode.LIGHT -> true
         ColorMode.DARK -> false
+        ColorMode.LIGHT -> true
     }
     val context = rememberPageContext()
 

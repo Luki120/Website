@@ -13,7 +13,6 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.compose.ui.thenIf
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.icons.CloseIcon
@@ -32,6 +31,7 @@ import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.breakpoint.displayIfAtLeast
 import com.varabyte.kobweb.silk.style.breakpoint.displayUntil
 import com.varabyte.kobweb.silk.style.toModifier
+import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import kotlinx.browser.localStorage
 import me.luki.website.core.COLOR_MODE_KEY
@@ -152,16 +152,13 @@ private fun MenuItems() {
 
 @Composable
 private fun MenuLink(path: String, text: String) {
+    val breakpoint = rememberBreakpoint()
+
     Link(
         path = path,
         text = text,
-        modifier = LinkStyle.toModifier()
-            .backgroundColor(Colors.Transparent)
-            .fontFamily("Barlow")
-            .styleModifier {
-                property("-webkit-tap-highlight-color", "transparent")
-            },
-        variant = UndecoratedLinkVariant.then(UncoloredLinkVariant)
+        modifier = LinkStyle.toModifier(),
+        variant = if (breakpoint == Breakpoint.ZERO) UndecoratedLinkVariant.then(UncoloredLinkVariant) else UndecoratedLinkVariant
     )
 }
 
