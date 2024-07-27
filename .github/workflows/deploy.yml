@@ -69,5 +69,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ${{ github.workspace }}/site/.kobweb/site/ --project-name=website
+          command: pages deploy ${{ github.workspace }}/site/.kobweb/site/ --project-name=luki120
           wranglerVersion: "3.67.1"
