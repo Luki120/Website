@@ -14,7 +14,6 @@ import me.luki.website.components.Language
 import me.luki.website.components.Project
 import me.luki.website.utils.toSitePalette
 import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.vh
 
 @Composable
@@ -31,7 +30,7 @@ private fun Languages() {
             .classNames("section-container")
             .fillMaxSize()
             .height(50.vh)
-            .scrollMargin(top = 5.cssRem),
+            .scrollMargin(top = 4.cssRem),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -39,19 +38,19 @@ private fun Languages() {
             text = "Languages I know",
             modifier = Modifier
                 .color(ColorMode.current.toSitePalette().accent)
-                .fontSize(35.px)
+                .fontSize(2.2.cssRem)
                 .fontFamily("Quicksand")
         )
         SimpleGrid(
             numColumns(1, md = 4),
             modifier = Modifier
                 .gap(0.8.cssRem)
-                .padding(top = 20.px)
+                .padding(top = 1.2.cssRem)
         ) {
-            Language(name = "Swift")
-            Language(name = "Objective-C")
-            Language(name = "Kotlin")
-            Language(name = "Ruby")
+            Language(name = "Swift", skillLevel = "Proficient")
+            Language(name = "Objective-C", skillLevel = "Proficient")
+            Language(name = "Kotlin", skillLevel = "Novice")
+            Language(name = "Ruby", skillLevel = "Novice")
         }
     }
 }
@@ -64,7 +63,8 @@ private fun Projects() {
             .classNames("section-container")
             .fillMaxSize()
             .height(100.vh)
-            .scrollMargin(top = 5.cssRem),
+            .padding(top = 3.cssRem)
+            .scrollMargin(top = 4.cssRem),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -72,14 +72,14 @@ private fun Projects() {
             text = "Projects",
             modifier = Modifier
                 .color(ColorMode.current.toSitePalette().accent)
-                .fontSize(35.px)
+                .fontSize(2.2.cssRem)
                 .fontFamily("Quicksand")
         )
         SimpleGrid(
             numColumns(1, md = 3),
             modifier = Modifier
                 .gap(0.8.cssRem)
-                .padding(top = 20.px)
+                .padding(top = 1.cssRem)
         ) {
             Project(name = "Areesha", description = "Keep track of your favorite TV shows")
             Project(name = "Azure", description = "FOSS TOTP 2FA with a clean, straightforward UI")

@@ -26,32 +26,32 @@ fun Project(name: String, description: String) {
     val context = rememberPageContext()
 
     Box(
+        contentAlignment = Alignment.Center,
         modifier = ProjectStyle.toModifier()
-            .cursor(Cursor.Pointer)
-            .width(260.px)
-            .height(110.px)
             .border(
                 color = ColorMode.current.toSitePalette().accent,
                 style = LineStyle.Solid,
                 width = 2.px
             )
+            .cursor(Cursor.Pointer)
             .onClick {
                 context.router.navigateTo("${Constants.GITHUB_URL}/$name")
-            },
-        contentAlignment = Alignment.Center
+            }
+            .padding(topBottom = 0.1.cssRem)
+            .width(260.px)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .gap(0.2.cssRem)
-                .padding(20.px),
+                .padding(1.cssRem),
             verticalArrangement = Arrangement.Center
         ) {
             SpanText(
                 text = name,
                 modifier = Modifier
                     .color(ColorMode.current.toSitePalette().accent)
-                    .fontSize(22.px)
+                    .fontSize(1.5.cssRem)
                     .fontFamily("Barlow")
                     .textAlign(TextAlign.Left)
             )
@@ -59,7 +59,7 @@ fun Project(name: String, description: String) {
                 text = description,
                 modifier = Modifier
                     .color(Colors.LightGray)
-                    .fontSize(15.px)
+                    .fontSize(0.95.cssRem)
                     .fontFamily("Barlow")
                     .textAlign(TextAlign.Left)
             )

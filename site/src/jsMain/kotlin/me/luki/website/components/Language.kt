@@ -1,37 +1,47 @@
 package me.luki.website.components
 
 import androidx.compose.runtime.Composable
-import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
+import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import me.luki.website.utils.toSitePalette
-import org.jetbrains.compose.web.css.LineStyle
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
 
 @Composable
-fun Language(name: String) {
+fun Language(name: String, skillLevel: String) {
     Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
-            .width(130.px)
-            .height(60.px)
             .border(
                 color = ColorMode.current.toSitePalette().accent,
                 style = LineStyle.Solid,
                 width = 1.px
-            ),
-        contentAlignment = Alignment.Center
+            )
+            .padding(topBottom = 0.70.cssRem, leftRight = 1.5.cssRem)
     ) {
-        SpanText(
-            text = name,
-            modifier = Modifier
-                .color(ColorMode.current.toSitePalette().accent)
-                .fontSize(18.px)
-                .fontFamily("Barlow")
-                .textAlign(TextAlign.Center)
-        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(0.2.cssRem)
+        ) {
+            LanguageText(text = name, fontSize = 1.2.cssRem)
+            LanguageText(text = skillLevel, fontSize = 0.90.cssRem, opacity = 0.6)
+        }
     }
+}
+
+@Composable
+private fun LanguageText(text: String, fontSize: CSSSizeValue<CSSUnit.rem>, opacity: Number = 1) {
+    SpanText(
+        text = text,
+        modifier = Modifier
+            .color(ColorMode.current.toSitePalette().accent)
+            .fontSize(fontSize)
+            .fontFamily("Barlow")
+            .opacity(opacity)
+    )
 }
