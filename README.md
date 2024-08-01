@@ -1,6 +1,6 @@
 # Website
 
-<img src="https://raw.githubusercontent.com/Luki120/Website/main/screenshots/Website.png?token=GHSAT0AAAAAACUCXTKRG5AK2F4JRON7B2S6ZVLEVSA" alt="Website screenshot" width="1156">
+<img src="https://raw.githubusercontent.com/Luki120/Website/main/screenshots/Website.png" alt="Website screenshot" width="1156"/>
 
 * My personal website, made without writing a single line of HTML. Just pure Kotlin & [Kobweb](https://kobweb.varabyte.com).
 
