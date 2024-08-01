@@ -10,8 +10,8 @@ import com.varabyte.kobweb.silk.components.layout.SimpleGrid
 import com.varabyte.kobweb.silk.components.layout.numColumns
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import me.luki.website.components.Language
-import me.luki.website.components.Project
+import me.luki.website.composables.Language
+import me.luki.website.composables.Project
 import me.luki.website.utils.toSitePalette
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.vh

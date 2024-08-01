@@ -10,8 +10,8 @@ import com.varabyte.kobweb.compose.ui.modifiers.gridTemplateRows
 import com.varabyte.kobweb.core.Page
 import kotlinx.browser.document
 import kotlinx.browser.window
-import me.luki.website.components.Footer
-import me.luki.website.components.Header
+import me.luki.website.composables.Footer
+import me.luki.website.composables.Header
 import me.luki.website.sections.ExperienceSection
 import me.luki.website.sections.MainSection
 import org.jetbrains.compose.web.css.fr

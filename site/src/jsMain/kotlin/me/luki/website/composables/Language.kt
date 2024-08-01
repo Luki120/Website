@@ -1,4 +1,4 @@
-package me.luki.website.components
+package me.luki.website.composables
 
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement

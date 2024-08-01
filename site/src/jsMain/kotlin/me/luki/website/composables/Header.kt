@@ -1,4 +1,4 @@
-package me.luki.website.components
+package me.luki.website.composables
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.browser.dom.ElementTarget

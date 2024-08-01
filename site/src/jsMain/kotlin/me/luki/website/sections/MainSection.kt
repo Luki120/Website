@@ -1,9 +1,7 @@
 package me.luki.website.sections
 
 import androidx.compose.runtime.Composable
-import com.varabyte.kobweb.compose.css.AnimationIterationCount
-import com.varabyte.kobweb.compose.css.CSSLengthNumericValue
-import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -14,12 +12,12 @@ import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.icons.fa.FaArrowDown
 import com.varabyte.kobweb.silk.components.text.SpanText
-import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.animation.Keyframes
 import com.varabyte.kobweb.silk.style.animation.toAnimation
-import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import me.luki.website.styles.AboutStyle
+import me.luki.website.styles.DescriptionStyle
 import me.luki.website.utils.toSitePalette
 import org.jetbrains.compose.web.css.*
 
@@ -79,25 +77,7 @@ private fun About() {
                 .color(ColorMode.current.toSitePalette().accent)
                 .position(Position.Absolute)
         ) {
-            FaArrowDown(modifier = Modifier.fontSize(35.px))
+            FaArrowDown(modifier = Modifier.fontSize(2.2.cssRem))
         }
-    }
-}
-
-val AboutStyle = CssStyle {
-    Breakpoint.ZERO {
-        Modifier.fontSize(55.px)
-    }
-    Breakpoint.MD {
-        Modifier.fontSize(100.px)
-    }
-}
-
-val DescriptionStyle = CssStyle {
-    Breakpoint.ZERO {
-        Modifier.fontSize(18.px)
-    }
-    Breakpoint.MD {
-        Modifier.fontSize(30.px)
     }
 }
