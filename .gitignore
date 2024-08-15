@@ -1,7 +1,8 @@
 build/
 .gradle/
 .idea/
+.kotlin/
+kotlin-js-store/
 /site/.kobweb/*
 !/site/.kobweb/conf.yaml
 .DS_Store
-kotlin-js-store
