@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - site/src/**
 
   workflow_dispatch:
 
@@ -30,10 +32,6 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          build-scan-publish: true
-          build-scan-terms-of-use-url: "https://gradle.com/help/legal-terms-of-use"
-          build-scan-terms-of-use-agree: "yes"
 
       - name: Query Browser Cache ID
         id: browser-cache-id
@@ -69,4 +67,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy ${{ github.workspace }}/site/.kobweb/site/ --project-name=luki120
-          wranglerVersion: "3.70.0"
+          wranglerVersion: "3.78.2"
