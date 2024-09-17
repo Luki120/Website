@@ -24,7 +24,7 @@ import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
 import com.varabyte.kobweb.silk.components.overlay.*
 import com.varabyte.kobweb.silk.components.text.SpanText
-import com.varabyte.kobweb.silk.defer.deferRender
+import com.varabyte.kobweb.silk.defer.Deferred
 import com.varabyte.kobweb.silk.style.animation.Keyframes
 import com.varabyte.kobweb.silk.style.animation.toAnimation
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
@@ -60,7 +60,7 @@ private enum class SideMenuState {
 
 @Composable
 fun Header() {
-    deferRender {
+    Deferred {
         Row(
             TranslucentNavBarStyle.toModifier()
                 .displayIfAtLeast(Breakpoint.MD)
@@ -137,7 +137,7 @@ private fun SideMenu(menuState: SideMenuState, close: () -> Unit, onAnimationEnd
                         .textAlign(TextAlign.Center),
                     horizontalAlignment = Alignment.End
                 ) {
-                    MenuItems()
+                    MenuItems(onLinkClick = { close() })
                 }
             }
         }
@@ -145,19 +145,19 @@ private fun SideMenu(menuState: SideMenuState, close: () -> Unit, onAnimationEnd
 }
 
 @Composable
-private fun MenuItems() {
-    MenuLink(path = "#experience", text = "Experience")
-    MenuLink(path = "#projects", text = "Projects")
+private fun MenuItems(onLinkClick: () -> Unit = {}) {
+    MenuLink(path = "#experience", text = "Experience", onClick = onLinkClick)
+    MenuLink(path = "#projects", text = "Projects", onClick = onLinkClick)
 }
 
 @Composable
-private fun MenuLink(path: String, text: String) {
+private fun MenuLink(path: String, text: String, onClick: () -> Unit) {
     val breakpoint = rememberBreakpoint()
 
     Link(
         path = path,
         text = text,
-        modifier = LinkStyle.toModifier(),
+        modifier = LinkStyle.toModifier().onClick { onClick() },
         variant = if (breakpoint == Breakpoint.ZERO) UndecoratedLinkVariant.then(UncoloredLinkVariant) else UndecoratedLinkVariant
     )
 }
