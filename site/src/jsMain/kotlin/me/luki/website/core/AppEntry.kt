@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.css.setVariable
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -32,6 +33,8 @@ import kotlinx.browser.document
 import kotlinx.browser.localStorage
 import kotlinx.browser.window
 import me.luki.website.utils.CustomColors
+import org.jetbrains.compose.web.css.CSSMediaQuery
+import org.jetbrains.compose.web.css.StylePropertyValue
 import org.jetbrains.compose.web.css.vh
 import org.w3c.dom.MediaQueryListEvent
 
@@ -68,6 +71,11 @@ fun InitSilk(context: InitSilkContext) {
         ?: ColorMode.SYSTEM.let { query ->
             if (query.matches) ColorMode.DARK else ColorMode.LIGHT
         }
+    context.stylesheet.registerStyle("html") {
+        cssRule(CSSMediaQuery.MediaFeature("prefers-reduced-motion", StylePropertyValue("no-preference"))) {
+            Modifier.scrollBehavior(ScrollBehavior.Smooth)
+        }
+    }
     overrideSilkStyles(context = context)
 }
 
