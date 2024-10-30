@@ -18,7 +18,7 @@ jobs:
       deployments: write
 
     env:
-      KOBWEB_CLI_VERSION: 0.9.15
+      KOBWEB_CLI_VERSION: 0.9.17
 
     steps:
       - name: Checkout repo
@@ -62,9 +62,8 @@ jobs:
           ../kobweb-${{ env.KOBWEB_CLI_VERSION }}/bin/kobweb export --notty --layout static
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3.7.0
+        uses: cloudflare/wrangler-action@v3.9.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy ${{ github.workspace }}/site/.kobweb/site/ --project-name=luki120
-          wranglerVersion: "3.78.2"
