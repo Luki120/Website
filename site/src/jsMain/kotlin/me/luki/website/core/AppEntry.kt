@@ -5,11 +5,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.varabyte.kobweb.compose.css.ScrollBehavior
-import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.css.setVariable
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
-import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
+import com.varabyte.kobweb.compose.ui.modifiers.fontFamily
+import com.varabyte.kobweb.compose.ui.modifiers.minHeight
+import com.varabyte.kobweb.compose.ui.modifiers.scrollBehavior
 import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.core.App
 import com.varabyte.kobweb.silk.SilkApp
@@ -19,12 +21,7 @@ import com.varabyte.kobweb.silk.components.layout.SurfaceVars.BackgroundColor
 import com.varabyte.kobweb.silk.components.navigation.LinkStyle
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
-import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.common.SmoothColorStyle
-import com.varabyte.kobweb.silk.style.plus
-import com.varabyte.kobweb.silk.style.selectors.hover
-import com.varabyte.kobweb.silk.style.selectors.link
-import com.varabyte.kobweb.silk.style.selectors.visited
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.button
@@ -32,7 +29,6 @@ import com.varabyte.kobweb.silk.theme.modifyStyle
 import kotlinx.browser.document
 import kotlinx.browser.localStorage
 import kotlinx.browser.window
-import me.luki.website.utils.CustomColors
 import org.jetbrains.compose.web.css.CSSMediaQuery
 import org.jetbrains.compose.web.css.StylePropertyValue
 import org.jetbrains.compose.web.css.vh
@@ -105,18 +101,6 @@ private fun overrideSilkStyles(context: InitSilkContext) {
                 .styleModifier {
                     property("-webkit-tap-highlight-color", "transparent")
                 }
-        }
-        (Breakpoint.ZERO + hover) {
-            Modifier.textDecorationLine(TextDecorationLine.None)
-        }
-        (Breakpoint.MD + hover) {
-            Modifier.textDecorationLine(TextDecorationLine.Underline)
-        }
-        link {
-            Modifier.color(CustomColors.Purple)
-        }
-        visited {
-            Modifier.color(CustomColors.Purple)
         }
     }
 }

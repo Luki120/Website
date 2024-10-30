@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import com.varabyte.kobweb.browser.dom.ElementTarget
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.css.functions.clamp
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
@@ -20,24 +21,26 @@ import com.varabyte.kobweb.silk.components.icons.HamburgerIcon
 import com.varabyte.kobweb.silk.components.icons.MoonIcon
 import com.varabyte.kobweb.silk.components.icons.SunIcon
 import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
-import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
+import com.varabyte.kobweb.silk.components.navigation.LinkStyle
 import com.varabyte.kobweb.silk.components.overlay.*
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.defer.Deferred
+import com.varabyte.kobweb.silk.style.addVariant
 import com.varabyte.kobweb.silk.style.animation.Keyframes
 import com.varabyte.kobweb.silk.style.animation.toAnimation
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.breakpoint.displayIfAtLeast
 import com.varabyte.kobweb.silk.style.breakpoint.displayUntil
+import com.varabyte.kobweb.silk.style.plus
+import com.varabyte.kobweb.silk.style.selectors.link
 import com.varabyte.kobweb.silk.style.toModifier
-import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
+import com.varabyte.kobweb.silk.style.vars.color.ColorVar
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import kotlinx.browser.localStorage
 import me.luki.website.core.COLOR_MODE_KEY
 import me.luki.website.core.SYSTEM
-import me.luki.website.styles.LinkStyle
 import me.luki.website.styles.TranslucentNavBarStyle
+import me.luki.website.utils.CustomColors
 import me.luki.website.utils.toSitePalette
 import org.jetbrains.compose.web.css.*
 
@@ -55,6 +58,28 @@ private enum class SideMenuState {
         CLOSED -> CLOSED
         OPEN -> CLOSING
         CLOSING -> CLOSING
+    }
+}
+
+val NavigationBarLinkVariant = LinkStyle.addVariant {
+    base {
+        Modifier.textDecorationLine(TextDecorationLine.None)
+    }
+
+    Breakpoint.MD {
+        Modifier
+            .border(
+                color = CustomColors.Purple,
+                style = LineStyle.Solid,
+                width = 2.px
+            )
+            .borderRadius(20.px)
+            .color(CustomColors.Purple)
+            .padding(topBottom = 10.px, leftRight = 20.px)
+    }
+
+    (Breakpoint.ZERO + link) {
+        Modifier.color(ColorVar.value())
     }
 }
 
@@ -152,13 +177,11 @@ private fun MenuItems(onLinkClick: () -> Unit = {}) {
 
 @Composable
 private fun MenuLink(path: String, text: String, onClick: () -> Unit) {
-    val breakpoint = rememberBreakpoint()
-
     Link(
         path = path,
         text = text,
-        modifier = LinkStyle.toModifier().onClick { onClick() },
-        variant = if (breakpoint == Breakpoint.ZERO) UndecoratedLinkVariant.then(UncoloredLinkVariant) else UndecoratedLinkVariant
+        modifier = Modifier.onClick { onClick() },
+        variant = NavigationBarLinkVariant
     )
 }
 
