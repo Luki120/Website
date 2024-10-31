@@ -66,6 +66,14 @@ val NavigationBarLinkVariant = LinkStyle.addVariant {
         Modifier.textDecorationLine(TextDecorationLine.None)
     }
 
+    (Breakpoint.ZERO + link) {
+        Modifier.color(ColorVar.value())
+    }
+
+    (Breakpoint.MD + link) {
+        Modifier.color(CustomColors.Purple)
+    }
+
     Breakpoint.MD {
         Modifier
             .border(
@@ -76,10 +84,6 @@ val NavigationBarLinkVariant = LinkStyle.addVariant {
             .borderRadius(20.px)
             .color(CustomColors.Purple)
             .padding(topBottom = 10.px, leftRight = 20.px)
-    }
-
-    (Breakpoint.ZERO + link) {
-        Modifier.color(ColorVar.value())
     }
 }
 
