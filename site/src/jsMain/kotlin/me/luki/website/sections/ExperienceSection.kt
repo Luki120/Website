@@ -63,7 +63,7 @@ private fun Projects() {
             .classNames("section-container")
             .fillMaxSize()
             .height(100.vh)
-            .padding(top = 3.cssRem)
+            .padding(top = 5.cssRem)
             .scrollMargin(top = 4.cssRem),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
