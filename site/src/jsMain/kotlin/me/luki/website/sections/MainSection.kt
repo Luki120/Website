@@ -1,7 +1,9 @@
 package me.luki.website.sections
 
 import androidx.compose.runtime.Composable
-import com.varabyte.kobweb.compose.css.*
+import com.varabyte.kobweb.compose.css.AnimationIterationCount
+import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.css.svh
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -20,6 +22,7 @@ import me.luki.website.styles.AboutStyle
 import me.luki.website.styles.DescriptionStyle
 import me.luki.website.utils.toSitePalette
 import org.jetbrains.compose.web.css.*
+import kotlin.js.Date
 
 val JumpKeyframe = Keyframes {
     from { Modifier.translateY(0.px) }
@@ -39,7 +42,7 @@ private fun About() {
         modifier = Modifier
             .id("about")
             .classNames("section-container")
-            .height("100svh".unsafeCast<CSSLengthNumericValue>())
+            .height(100.svh)
             .fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -54,7 +57,7 @@ private fun About() {
                     .fontFamily("Quicksand")
             )
             SpanText(
-                text = "iOS developer with +3 years of experience",
+                text = "iOS developer with +${getYearsOfExperience()} years of experience",
                 modifier = DescriptionStyle.toModifier()
                     .align(Alignment.CenterHorizontally)
                     .color(Colors.LightGray)
@@ -80,4 +83,14 @@ private fun About() {
             FaArrowDown(modifier = Modifier.fontSize(2.2.cssRem))
         }
     }
+}
+
+private fun getYearsOfExperience(): Int {
+    val startDate = Date(2020, 10, 1)
+
+    val diffMilliseconds = Date.now() - startDate.getTime()
+    val millisecondsInYear = 1000 * 60 * 60 * 24 * 365.25
+    val diffYears = diffMilliseconds / millisecondsInYear
+
+    return diffYears.toInt()
 }
