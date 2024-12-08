@@ -34,6 +34,7 @@ import com.varabyte.kobweb.silk.style.breakpoint.displayUntil
 import com.varabyte.kobweb.silk.style.plus
 import com.varabyte.kobweb.silk.style.selectors.link
 import com.varabyte.kobweb.silk.style.toModifier
+import com.varabyte.kobweb.silk.style.until
 import com.varabyte.kobweb.silk.style.vars.color.ColorVar
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import kotlinx.browser.localStorage
@@ -66,12 +67,8 @@ val NavigationBarLinkVariant = LinkStyle.addVariant {
         Modifier.textDecorationLine(TextDecorationLine.None)
     }
 
-    (Breakpoint.ZERO + link) {
+    until(Breakpoint.MD) {
         Modifier.color(ColorVar.value())
-    }
-
-    (Breakpoint.MD + link) {
-        Modifier.color(CustomColors.Purple)
     }
 
     Breakpoint.MD {

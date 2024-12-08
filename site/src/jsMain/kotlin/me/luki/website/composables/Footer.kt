@@ -21,9 +21,8 @@ import com.varabyte.kobweb.silk.components.navigation.LinkStyle
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.addVariant
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
-import com.varabyte.kobweb.silk.style.plus
-import com.varabyte.kobweb.silk.style.selectors.hover
 import com.varabyte.kobweb.silk.style.toModifier
+import com.varabyte.kobweb.silk.style.until
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import me.luki.website.styles.SocialButtonStyle
 import me.luki.website.utils.Constants
@@ -42,11 +41,7 @@ val FooterLinkVariant = LinkStyle.addVariant {
         Modifier.color(CustomColors.Purple)
     }
 
-    (Breakpoint.MD + hover) {
-        Modifier.textDecorationLine(TextDecorationLine.Underline)
-    }
-
-    Breakpoint.ZERO {
+    until(Breakpoint.MD) {
         Modifier.textDecorationLine(TextDecorationLine.None)
     }
 }
