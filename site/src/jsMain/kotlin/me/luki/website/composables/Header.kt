@@ -31,15 +31,14 @@ import com.varabyte.kobweb.silk.style.animation.toAnimation
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.breakpoint.displayIfAtLeast
 import com.varabyte.kobweb.silk.style.breakpoint.displayUntil
-import com.varabyte.kobweb.silk.style.plus
-import com.varabyte.kobweb.silk.style.selectors.link
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.style.until
 import com.varabyte.kobweb.silk.style.vars.color.ColorVar
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.colors.saveToLocalStorage
+import com.varabyte.kobweb.silk.theme.colors.systemPreference
 import kotlinx.browser.localStorage
 import me.luki.website.core.COLOR_MODE_KEY
-import me.luki.website.core.SYSTEM
 import me.luki.website.styles.TranslucentNavBarStyle
 import me.luki.website.utils.CustomColors
 import me.luki.website.utils.toSitePalette
@@ -225,7 +224,7 @@ private fun ColorModeButton() {
                 text = "Dark",
                 onClick = {
                     colorMode = ColorMode.DARK
-                    localStorage.setItem(key = COLOR_MODE_KEY, value = colorMode.name)
+                    colorMode.saveToLocalStorage(key = COLOR_MODE_KEY)
                     closePopover()
                     shouldAnimate = false
                 }
@@ -234,7 +233,7 @@ private fun ColorModeButton() {
                 text = "Light",
                 onClick = {
                     colorMode = ColorMode.LIGHT
-                    localStorage.setItem(key = COLOR_MODE_KEY, value = colorMode.name)
+                    colorMode.saveToLocalStorage(key = COLOR_MODE_KEY)
                     closePopover()
                     shouldAnimate = false
                 }
@@ -242,9 +241,7 @@ private fun ColorModeButton() {
             DropdownContentButton(
                 text = "System",
                 onClick = {
-                    colorMode = ColorMode.SYSTEM.let { query ->
-                        if (query.matches) ColorMode.DARK else ColorMode.LIGHT
-                    }
+                    colorMode = ColorMode.systemPreference
                     localStorage.removeItem(key = COLOR_MODE_KEY)
                     closePopover()
                     shouldAnimate = false

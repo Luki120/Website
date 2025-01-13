@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.varabyte.kobweb.compose.css.ScrollBehavior
-import com.varabyte.kobweb.compose.css.setVariable
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
@@ -17,22 +16,20 @@ import com.varabyte.kobweb.core.App
 import com.varabyte.kobweb.silk.SilkApp
 import com.varabyte.kobweb.silk.components.forms.ButtonStyle
 import com.varabyte.kobweb.silk.components.layout.Surface
-import com.varabyte.kobweb.silk.components.layout.SurfaceVars.BackgroundColor
 import com.varabyte.kobweb.silk.components.navigation.LinkStyle
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.style.common.SmoothColorStyle
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.colors.loadFromLocalStorage
 import com.varabyte.kobweb.silk.theme.colors.palette.button
+import com.varabyte.kobweb.silk.theme.colors.systemPreference
 import com.varabyte.kobweb.silk.theme.modifyStyle
-import kotlinx.browser.document
-import kotlinx.browser.localStorage
 import kotlinx.browser.window
 import org.jetbrains.compose.web.css.CSSMediaQuery
 import org.jetbrains.compose.web.css.StylePropertyValue
 import org.jetbrains.compose.web.css.vh
-import org.w3c.dom.MediaQueryListEvent
 
 internal const val COLOR_MODE_KEY = "luki120.xyz-colorMode"
 
@@ -44,15 +41,11 @@ internal val ColorMode.Companion.SYSTEM
 fun AppEntry(content: @Composable () -> Unit) {
     SilkApp {
         var colorMode by ColorMode.currentState
+
         LaunchedEffect(Unit) {
             ColorMode.SYSTEM.addEventListener("change", {
-                localStorage.getItem(COLOR_MODE_KEY) ?: let { _ ->
-                    colorMode = (if (it is MediaQueryListEvent && it.matches) ColorMode.DARK else ColorMode.LIGHT)
-                }
+                colorMode = ColorMode.loadFromLocalStorage(key = COLOR_MODE_KEY) ?: ColorMode.systemPreference
             })
-        }
-        LaunchedEffect(colorMode) {
-            document.body!!.setVariable(BackgroundColor, if (colorMode.isLight) Colors.White else Colors.Black)
         }
 
         Surface(SmoothColorStyle.toModifier().minHeight(100.vh)) {
@@ -63,10 +56,7 @@ fun AppEntry(content: @Composable () -> Unit) {
 
 @InitSilk
 fun InitSilk(context: InitSilkContext) {
-    context.config.initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) }
-        ?: ColorMode.SYSTEM.let { query ->
-            if (query.matches) ColorMode.DARK else ColorMode.LIGHT
-        }
+    context.config.initialColorMode = ColorMode.loadFromLocalStorage(key = COLOR_MODE_KEY) ?: ColorMode.systemPreference
     context.stylesheet.registerStyle("html") {
         cssRule(CSSMediaQuery.MediaFeature("prefers-reduced-motion", StylePropertyValue("no-preference"))) {
             Modifier.scrollBehavior(ScrollBehavior.Smooth)
